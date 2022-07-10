@@ -1,0 +1,54 @@
+server:
+  port: 80
+  servlet:
+    session:
+      #Session��ʱʱ������Ϊ5Сʱ����λ���룬Ĭ����30����
+      timeout: 18000
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/lxw2000?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  freemarker:
+    # ����ģ���׺��
+    suffix: .ftl
+    # �����ĵ�����
+    content-type: text/html
+    # ����ҳ������ʽ
+    charset: UTF-8
+    # ����ҳ�滺��
+    cache: true
+    settings:
+      number_format: 0.##
+  web:
+    resources:
+      static-locations: classpath:static/,file:static/
+
+
+
+mybatis-plus:
+  type-aliases-package: com.lxw2000.entity
+  configuration:
+    call-setters-on-nulls: false
+    #�����շ�
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    banner: true
+    db-config:
+      #��������  0:"���ݿ�ID����", 1:"�û�����ID",2:"ȫ��ΨһID (��������ΨһID)", 3:"ȫ��ΨһID UUID";
+      id-type: uuid
+      logic-not-delete-value: 1
+      logic-delete-value: 0
+
+
+logging:
+  level:
+    root: error #��־����DEBUG,INFO,WARN,ERROR

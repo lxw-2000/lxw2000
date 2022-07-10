@@ -1,0 +1,16 @@
+package com.lxw.mapper;
+
+import com.lxw.entity.ArticleTagList;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+/**
+ * <p>
+ * 文章对应标签 Mapper 接口
+ * </p>
+ *
+ * @author jobob
+ * @since 2022-07-01
+ */
+public interface ArticleTagListMapper extends BaseMapper<ArticleTagList> {
+
+}
