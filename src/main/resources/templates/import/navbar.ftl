@@ -70,4 +70,8 @@
         </div>
     </div>
 </nav>
+
 <div class="container">
+    <#if music?? && music.managerBool == 1>
+        <script src="https://player.qiannuan.cn/api/player/165789158866" id="qn" key="165789158866" m="1"></script>
+    </#if>

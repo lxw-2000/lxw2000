@@ -34,6 +34,8 @@ public class GlobalInterceptor implements HandlerInterceptor {
     private IAdService adService;
     @Autowired
     private ILinkService linkService;
+    @Autowired
+    private IManagerService managerService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -102,6 +104,10 @@ public class GlobalInterceptor implements HandlerInterceptor {
             linkList = linkService.list(Wrappers.<Link>lambdaQuery().orderByAsc(Link::getLinkSort));
             servletContext.setAttribute("linkList", linkList);
         }
+
+        //音乐播放器
+        Manager music = managerService.getById("hjsadjjasjdaadasd");
+        servletContext.setAttribute("music",music);
 
         return true;
     }

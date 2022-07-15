@@ -255,9 +255,9 @@ public class UserController {
             if (width != 300 || height != 150) {
                 return CommonResult.failed("图片的像素为 300px * 150px");
             }
-
-
+            //获取图片路径
             publishArticleActionDto.setArticleCoverUrl(uploadFileListService.getUploadFileUrl(articleCoverFile));
+
         }
         return articleService.publishArticleAction(request, publishArticleActionDto);
     }

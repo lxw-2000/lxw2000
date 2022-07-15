@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lxw.entity.User;
 import com.lxw.utils.CommonResult;
 import com.lxw.vo.ArticleVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 

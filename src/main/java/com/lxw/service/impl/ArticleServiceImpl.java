@@ -19,6 +19,7 @@ import com.lxw.vo.ArticleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -113,7 +114,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 发布文章方法
-     *
+     * 2.图片先于文章保存，如果不保存文章图片也会提交，不合理
      * @param publishArticleActionDto
      * @return
      */
@@ -128,14 +129,21 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         article.setArticleCoverUrl(publishArticleActionDto.getArticleCoverUrl());
         article.setUserId(user.getUserId());
         article.setArticleTitle(publishArticleActionDto.getArticleTitle());
+        article.setArticleContext(publishArticleActionDto.getArticleContext());
+        //新增初始化文章
         if (StrUtil.isBlank(article.getArticleId())) {
             article.setArticleAddTime(DateUtil.date());
+            article.setArticleGoodNumber(0);
+            article.setArticleLookNumber(0);
+            article.setArticleHot(0);
+            article.setArticleCollectionNumber(0);
         }
-        article.setArticleContext(publishArticleActionDto.getArticleContext());
-        article.setArticleGoodNumber(0);
-        article.setArticleLookNumber(0);
-        article.setArticleHot(0);
-        article.setArticleCollectionNumber(0);
+        //如果是修改的话，查出原来文章的点赞数，收藏数，是否为热门文章，观看数
+        Article articleOld = getById(article.getArticleId());
+        article.setArticleGoodNumber(articleOld.getArticleGoodNumber());
+        article.setArticleLookNumber(articleOld.getArticleLookNumber());
+        article.setArticleHot(articleOld.getArticleHot());
+        article.setArticleCollectionNumber(articleOld.getArticleCollectionNumber());
 
         if (!saveOrUpdate(article)) {
             return CommonResult.failed("操作失败，请刷新页面重试!");

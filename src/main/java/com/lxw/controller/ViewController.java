@@ -63,6 +63,9 @@ public class ViewController {
     private IArticleTagListService articleTagListService;
 
     @Autowired
+    private IManagerService managerService;
+
+    @Autowired
     private ServletContext servletContext;
 
 
@@ -336,6 +339,9 @@ public class ViewController {
             model.addAttribute("articleType", articleType);
         }
 
+        //评论开关
+        Integer comment = managerService.getById("hhsxjhjshaxccaa").getManagerBool();
+        model.addAttribute("comment",comment);
         return "/view/article";
     }
 

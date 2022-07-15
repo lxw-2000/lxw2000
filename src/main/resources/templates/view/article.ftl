@@ -23,79 +23,84 @@
         background-color: #2c8931;
     }
 </style>
-<div class = "col-xs-12">
-    <ol class = "breadcrumb">
-        <li><a href = "/"><i class = "icon-home"></i> 首页</a></li>
+<div class="col-xs-12">
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="icon-home"></i> 首页</a></li>
         <li>
-            <a href = "/article/list?articleTypeId=${(articleType.articleTypeId)!}">${(articleType.articleTypeName)!}</a>
+            <a href="/article/list?articleTypeId=${(articleType.articleTypeId)!}">${(articleType.articleTypeName)!}</a>
         </li>
-        <li class = "active">${(article.articleTitle)!}</li>
+        <li class="active">${(article.articleTitle)!}</li>
     </ol>
     <hr/>
 </div>
 
-<div class = "col-xs-12">
-    <div class = "panel">
-        <div class = "panel-body" style = "padding-top:0;">
-            <article class = "article">
+<div class="col-xs-12">
+    <div class="panel">
+        <div class="panel-body" style="padding-top:0;">
+            <article class="article">
                 <header>
-                    <h1 class = "text-center" style = "margin-top: 5px;">
+                    <h1 class="text-center" style="margin-top: 5px;">
                         ${(article.articleTitle)!}
                         <br/>
                         <small>
                             发布时间: ${(article.articleAddTime)?string("yyyy-MM-dd HH:mm:ss")}
                         </small>
                     </h1>
-                    <dl class = "dl-inline">
-                        <dd><i class = "icon-user"></i>发布者:${(article.userName)!}</dd>
+                    <dl class="dl-inline">
+                        <dd><i class="icon-user"></i>发布者:${(article.userName)!}</dd>
                         <dt>
-                        <dd class = "pull-right">
-                            <span class = "label label-info">
-                                <i class = "icon-eye-open"></i> ${(article.articleLookNumber)!}
+                        <dd class="pull-right">
+                            <span class="label label-info">
+                                <i class="icon-eye-open"></i> ${(article.articleLookNumber)!}
                             </span> |
-                            <span class = "label label-success hoverPalm"
-                                  onclick = "articleGood('${(article.articleId)!}')">
-                                <i class = "icon-thumbs-up"></i> <span
-                                        id = "articleGoodNumber">${(article.articleGoodNumber)!}</span>
+                            <span class="label label-success hoverPalm"
+                                  onclick="articleGood('${(article.articleId)!}')">
+                                <i class="icon-thumbs-up"></i> <span
+                                        id="articleGoodNumber">${(article.articleGoodNumber)!}</span>
                             </span> |
-                            <span class = "label label-primary hoverPalm"
-                                  onclick = "articleCollection('${(article.articleId)!}')">
-                                <i class = "icon-star"></i> <span
-                                        id = "articleCollectionNumber">${(article.articleCollectionNumber)!}</span>
+                            <span class="label label-primary hoverPalm"
+                                  onclick="articleCollection('${(article.articleId)!}')">
+                                <i class="icon-star"></i> <span
+                                        id="articleCollectionNumber">${(article.articleCollectionNumber)!}</span>
                             </span>
                         </dd>
                     </dl>
                 </header>
-                <section class = "content">
+                <section class="content">
                     <p>${(article.articleContext)!}</p>
                 </section>
                 <footer>
-                    <div class = "col-xs-12" id = "commentListBox">
+                    <div class="col-xs-12" id="commentListBox">
 
                     </div>
 
 
-                    <div class = "form-group col-xs-12" style = "margin-top: 25px;padding: 2px;">
-                        <span onclick = "loadMoreComment()" id = "loadMoreCommentBtn"
-                              class = "pull-right hoverPalm loadMoreCommentBtn">更多评论<i
-                                    class = "icon-double-angle-down"></i> </span>
+                    <div class="form-group col-xs-12" style="margin-top: 25px;padding: 2px;">
+                        <span onclick="loadMoreComment()" id="loadMoreCommentBtn"
+                              class="pull-right hoverPalm loadMoreCommentBtn">更多评论<i
+                                    class="icon-double-angle-down"></i> </span>
                         <hr/>
-                        <label for = "commentContent" id = "commentInfo"><#if user??>撰写评论:<#else>请先登录</#if></label>
+                        <label for="commentContent" id="commentInfo"><#if user??>撰写评论:<#else>请先登录</#if></label>
 
-                        <textarea id = "commentContent" name = "commentContent" maxlength = "1500"
-                                  class = "form-control new-comment-text" rows = "2"
-                                  placeholder = "<#if user??>撰写评论...<#else>请先登录..</#if>"
-                                  <#if user??><#else>disabled = "disabled"</#if>></textarea>
+                        <textarea id="commentContent" name="commentContent" maxlength="1500"
+                                  class="form-control new-comment-text" rows="2"
+                                  placeholder="<#if comment==0>评论已关闭..<#else ><#if user??>撰写评论...<#else>请先登录..</#if></#if>"
+                                  <#if comment==0>disabled="disabled"
+                                  <#else >
+                                      <#if user??>
+                                      <#else>disabled = "disabled"
+                                      </#if>
+                                </#if>></textarea>
 
-                        <button type = "button" id="commentBtn" onclick = "saveComment('${(article.articleId)!}')"
-                                class = "btn btn-success pull-right"
-                                style = "margin-top: 10px;"
-                                <#if user??><#else>disabled = "disabled"</#if>>评论
+                        <button type="button" id="commentBtn" onclick="saveComment('${(article.articleId)!}')"
+                                class="btn btn-success pull-right"
+                                style="margin-top: 10px;"
+                                <#if user??><#else>disabled="disabled"</#if>>评论
                         </button>
 
-                        <button type = "button" id="commentReplyBtn" onclick = "commentReplyAction()"
-                                class = "btn btn-success pull-right"
-                                style = "margin-top: 10px;" <#if user??><#else>disabled = "disabled"</#if>>回复
+                        <button type="button" id="commentReplyBtn" onclick="commentReplyAction()"
+                                class="btn btn-success pull-right"
+                                style="margin-top: 10px;" <#if user??><#else>disabled="disabled"</#if>>回复
                         </button>
 
                     </div>
@@ -109,7 +114,7 @@
     let articleId = '${(article.articleId)!}';
     let pageNumber = 1;
     let totalPage = 1;
-    let commentId ;
+    let commentId;
 
     function commentReply(commentId, userName) {
         $("#commentInfo").text("回复：" + userName);
@@ -127,7 +132,7 @@
             zuiMsg("请填写评论");
             return;
         }
-        if(!checkNotNull(commentId)){
+        if (!checkNotNull(commentId)) {
             zuiMsg("程序出现错误，请刷新页面重试");
             return;
         }
@@ -291,7 +296,7 @@
             '</div>' +
             '<div class="text">&emsp;&emsp;' + commentContent + '</div>' +
             '<div class="actions">'
-            // '<span class="hoverPalm llBox" onclick="commentReply(\'' + commentId + '\')"><i class="icon-edit"></i> 回复</span>';
+        // '<span class="hoverPalm llBox" onclick="commentReply(\'' + commentId + '\')"><i class="icon-edit"></i> 回复</span>';
 
         if (isGoodComment != null && isGoodComment == 1) {
             commentHtml += ' <span class="hoverPalm llBox goodCommentBgColor" onclick="goodComment(this,\'' + commentId + '\')"><i class="icon-thumbs-o-up"></i> 点赞 ' + commentGoodNumber + '次</span>';

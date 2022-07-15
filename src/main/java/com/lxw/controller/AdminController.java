@@ -70,6 +70,8 @@ public class AdminController {
     private IAdTypeService adTypeService;
     @Autowired
     private IUploadFileListService uploadFileListService;
+    @Autowired
+    private IManagerService managerService;
 
     /**
      * 登录
@@ -156,19 +158,20 @@ public class AdminController {
      * @return
      */
     @GetMapping("/Manager")
-    public String Manager() {
+    public String Manager(Model model) {
+        //Manager comment = managerService.getOne(Wrappers.<Manager>lambdaQuery().eq(Manager::getManagerId, "hhsxjhjshaxccaa"), false);
+        List<Manager> managerList = managerService.list();
+        model.addAttribute("managerList",managerList);
         return "admin/manager";
     }
 
-    @PostMapping("/CommentController")
+    @PostMapping("/managerController")
     @ResponseBody
-    public CommonResult commentController(Boolean bool) {
-        if (bool) {
-            servletContext.setAttribute("Comment",true);
-            return CommonResult.success("评论功能已开启！");
-        }
-        servletContext.removeAttribute("Comment");
-        return CommonResult.success("评论功能关闭了！");
+    public CommonResult commentController(String managerId,Integer num) {
+        managerService.update(Wrappers.<Manager>lambdaUpdate().
+                eq(Manager::getManagerId,managerId)
+                .set(Manager::getManagerBool,num));
+        return CommonResult.success("设置成功！");
 
     }
 
