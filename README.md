@@ -1,0 +1,3 @@
+一个个人博客系统www.xuewen.fun，包括了后台管理和前台展示。
+技术栈：springboot,mybatis-plus,freemaker,openzui...
+本人在b站学习到原作者博客网站，原博客来自于www.wxk1991.com,作为初版，以后会不定时更新内容，由于本人是个java新手，写的代码不好不正确请各位大佬指正，谢谢。
